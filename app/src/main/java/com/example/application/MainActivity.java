@@ -65,20 +65,21 @@ public class MainActivity extends AppCompatActivity {
                 if(pwd.isEmpty() || emailID.isEmpty()){
                     Toast.makeText(MainActivity.this,"Fields are empty", Toast.LENGTH_SHORT ).show();
                 }
-                else if(!(pwd.isEmpty() && emailID.isEmpty())){
-                    mFirebaseAuth.createUserWithEmailAndPassword(emailID, pwd).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(!task.isSuccessful()){
-                                Toast.makeText(MainActivity.this,"Login unsuccessfull", Toast.LENGTH_SHORT ).show();
+                else if(!(pwd.isEmpty() && emailID.isEmpty())) {
+                  mFirebaseAuth.signInWithEmailAndPassword(emailID, pwd).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                      @Override
+                      public void onComplete(@NonNull Task<AuthResult> task) {
+                          if(task.isSuccessful()){
+                              Toast.makeText(MainActivity.this,"Logged in succesfully", Toast.LENGTH_SHORT ).show();
 
-                            }
-                            else{
-                                Intent intToHome = new Intent(MainActivity.this, HomeActivity.class );
-                                startActivity(intToHome);
-                            }
-                        }
-                    });
+                          }
+                          else{
+                              Intent myintent = new Intent(MainActivity.this, HomeActivity.class);
+                          }
+                      }
+                  });
+
+
 
                 }
                 else{

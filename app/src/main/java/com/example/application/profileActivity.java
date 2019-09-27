@@ -71,7 +71,7 @@ public class profileActivity extends AppCompatActivity {
         tvSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myintent = new Intent(profileActivity.this, HomeActivity.class );
+                Intent myintent = new Intent(profileActivity.this, MainActivity.class );
                 startActivity(myintent);
             }
         });
