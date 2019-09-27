@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "398784721972",
+    "firebase_url": "https://financestartup-83dbe.firebaseio.com",
+    "project_id": "financestartup-83dbe",
+    "storage_bucket": "financestartup-83dbe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398784721972:android:625155888487edbb040661",
+        "android_client_info": {
+          "package_name": "com.example.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398784721972-3f5igc66oi6pt2cn86kvltol6cq1p9bk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfY2lSUAsMlZGaKXf3k3TnLqtIaLYiyAA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398784721972-3f5igc66oi6pt2cn86kvltol6cq1p9bk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
