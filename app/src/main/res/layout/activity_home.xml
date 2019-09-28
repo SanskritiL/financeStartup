@@ -4,28 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFCDB2"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
     tools:context=".profileActivity">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="220dp"
-        android:layout_height="120dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginBottom="28dp"
-        android:text="Welcome"
-        app:layout_constraintBottom_toTopOf="@+id/logout"
-        app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/logout"
-        android:layout_width="141dp"
-        android:layout_height="45dp"
-        android:background="#6F1531"
-        android:text="Logout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.544"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="393dp" />
+
+    <WebView
+        android:layout_height="match_parent"
+        android:id="@+id/webview"
+        android:layout_width="match_parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
