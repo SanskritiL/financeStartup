@@ -11,26 +11,40 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.anychart.anychart.chart.common.Event;
+import com.anychart.anychart.chart.common.ListenersInterface;
+import com.example.application.firebase_storage.users;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.anychart.anychart.AnyChart;
+import com.anychart.anychart.AnyChartView;
+import com.anychart.anychart.DataEntry;
+import com.anychart.anychart.Pie;
+import com.anychart.anychart.ValueDataEntry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.HashMap;
 
 public class HomeActivity extends AppCompatActivity {
 
     Button btnLogout;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
+
         // Initialize Link
         HashMap<String, String> linkInitializeOptions = new HashMap<String,String>();
-        linkInitializeOptions.put("key", "b9d2de60a7a88f5b4d3125f0acb1f3");
+        linkInitializeOptions.put("key", "2d23bdf36ae634cd15f94ee36a4bc4");
         linkInitializeOptions.put("product", "auth");
         linkInitializeOptions.put("apiVersion", "v2"); // set this to "v1" if using the legacy Plaid API
         linkInitializeOptions.put("env", "sandbox");
@@ -71,22 +85,95 @@ public class HomeActivity extends AppCompatActivity {
                 // for a standard URL (typically a forgotten password or account not setup link).
                 // Handle Plaid Link redirects and open traditional pages directly in the  user's
                 // preferred browser.
+
+
+                FirebaseAuth.AuthStateListener mAuthStateListener;
+                FirebaseAuth mAuth;
+                String current_user_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference().child("users");
+
+                users myUser= new users();
+
+
+                Toast.makeText(HomeActivity.this,"method ko tala pugyp", Toast.LENGTH_SHORT ).show();
                 Uri parsedUri = Uri.parse(url);
                 if (parsedUri.getScheme().equals("plaidlink")) {
+                    Toast.makeText(HomeActivity.this,"method ko arko ma pugyp", Toast.LENGTH_SHORT ).show();
                     String action = parsedUri.getHost();
                     HashMap<String, String> linkData = parseLinkUriData(parsedUri);
 
                     if (action.equals("connected")) {
-                        // User successfully linked
-                        Log.d("Public token: ", linkData.get("public_token"));
-                        Log.d("Account ID: ", linkData.get("account_id"));
-                        Log.d("Account name: ", linkData.get("account_name"));
-                        Log.d("Institution id: ", linkData.get("institution_id"));
-                        Log.d("Institution name: ", linkData.get("institution_name"));
+                        Toast.makeText(HomeActivity.this,"action connected ma pugyop", Toast.LENGTH_SHORT ).show();
+                            // User successfully linked
+                            Log.i("Public token: ", linkData.get("public_token"));
+                            Log.i("Account ID: ", linkData.get("account_id"));
+                            Log.i("Account name: ", linkData.get("account_name"));
+                            Log.i("Institution id: ", linkData.get("institution_id"));
+                            Log.i("Institution name: ", linkData.get("institution_name"));
 
-                        // Reload Link in the Webview
-                        // You will likely want to transition the view at this point.
-                        plaidLinkWebview.loadUrl(linkInitializationUrl.toString());
+
+                            //String categories = linkData.get("transactions[category]");
+
+                            // Write a message to the database
+                           FirebaseDatabase mydatabase = FirebaseDatabase.getInstance();
+                           DatabaseReference myReference = mydatabase.getReference("users");
+
+
+                            myUser.setUser_email(current_user_email);
+                            myUser.setPublicToken(linkData.get("public_token").toString());
+                            myReference.setValue(myUser);
+
+                           Log.i("myTag", linkData.get("transactions[category]"));
+
+                            Intent i = new Intent(HomeActivity.this, ChartActivity.class);
+                            //i.putExtra("key",categories);
+                            startActivity(i);
+
+
+
+
+
+
+                                            //String categories =  linkData.get("transactions[categories]");
+
+
+//                       // List<DataEntry> data = categories;
+//                        Pie pie = AnyChart.pie();
+//
+//                        pie.setOnClickListener(new ListenersInterface.OnClickListener(new String[]{"x", "value"}) {
+//                            @Override
+//                            public void onClick(Event event) {
+//                                Toast.makeText(HomeActivity.this, event.getData().get("x") + ":" + event.getData().get("value"), Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            //plaidLinkWebview.loadUrl(linkInitializationUrl.toString());
                     } else if (action.equals("exit")) {
                         // User exited
                         // linkData may contain information about the user's status in the Link flow,
@@ -150,46 +237,9 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//        mAuth = FirebaseAuth.getInstance();
-//        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        if (firebaseUser != null) {
-//            String email = firebaseUser.getUid();
-//            Strin
-//        }
-//
-//
-//
-//        btnLogout = findViewById(R.id.logout);
-//
-//        btnLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FirebaseAuth.getInstance().signOut();
-//                Intent intToLogin = new Intent(HomeActivity.this, MainActivity.class);
-//                startActivity(intToLogin);
-//            }
-//        });
-
-
-
-
-
 }
+
+
+
+
 

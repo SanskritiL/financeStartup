@@ -66,9 +66,12 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"Fields are empty", Toast.LENGTH_SHORT ).show();
                 }
                 else if(!(pwd.isEmpty() && emailID.isEmpty())) {
+
+
                   mFirebaseAuth.signInWithEmailAndPassword(emailID, pwd).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                       @Override
                       public void onComplete(@NonNull Task<AuthResult> task) {
+                          Toast.makeText(MainActivity.this,"Auntheticating", Toast.LENGTH_SHORT ).show();
                           if(task.isSuccessful()){
                               Toast.makeText(MainActivity.this,"Logged in succesfully", Toast.LENGTH_SHORT ).show();
 
